@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.Python
+*.egg-info/
+
+# Data (büyük dosyalar, gerekirse eklenebilir)
+# data/  ← şimdilik dahil ediyoruz
+
+# Model ağırlıkları (büyük olabilir)
+outputs/models/*.pt
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+
+# W&B local files
+wandb/
+
+# Ortam
+.env
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
