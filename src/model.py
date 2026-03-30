@@ -18,13 +18,13 @@ class DNN(nn.Module):
         self,
         input_dim=4,
         hidden_layers=None,
-        dropout=0.15,
-        use_batchnorm=True,
+        dropout=0.0,
+        use_batchnorm=False,
         activation='SiLU'
     ):
         super().__init__()
         if hidden_layers is None:
-            hidden_layers = [128, 256, 128, 64]
+            hidden_layers = [512, 64, 512, 512, 256]
 
         act_fn = ACTIVATIONS[activation]
 

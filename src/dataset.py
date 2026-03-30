@@ -40,11 +40,13 @@ def get_fold_splits(n_samples):
     return list(kf.split(range(n_samples)))
 
 
-def preprocess_fold(train_df, test_df, train_idx, val_idx):
+def preprocess_fold(train_df, test_df, train_idx, val_idx, config=None):
     """
     Tek bir fold için tüm preprocessing pipeline'ını çalıştır.
     Returns: train_dataset, val_dataset, test_X_scaled, imputer, scaler
     """
+    cfg = config or {}
+
     X_all = train_df[FEATURES_TO_USE].copy()
     y_all = train_df[TARGET_COL].values
     X_test = test_df[FEATURES_TO_USE].copy()
@@ -55,7 +57,7 @@ def preprocess_fold(train_df, test_df, train_idx, val_idx):
     y_val = y_all[val_idx]
 
     # KNN Imputation (fit on train fold ONLY)
-    imputer = KNNImputer(n_neighbors=IMPUTE_K)
+    imputer = KNNImputer(n_neighbors=cfg.get('impute_k', IMPUTE_K))
     X_train_imp = pd.DataFrame(imputer.fit_transform(X_train_raw), columns=FEATURES_TO_USE)
     X_val_imp = pd.DataFrame(imputer.transform(X_val_raw), columns=FEATURES_TO_USE)
     X_test_imp = pd.DataFrame(imputer.transform(X_test), columns=FEATURES_TO_USE)
