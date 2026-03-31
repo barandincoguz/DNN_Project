@@ -34,9 +34,11 @@ def get_loss_fn(config=None):
     cfg = config or {}
     loss_name = cfg.get('loss_fn', LOSS_FN)
 
+    if loss_name == 'MSE':
+        return nn.MSELoss()
     if loss_name == 'Huber':
         return nn.HuberLoss(delta=cfg.get('huber_delta', HUBER_DELTA))
-    return nn.MSELoss()
+    raise ValueError(f"Geçersiz LOSS_FN: '{loss_name}'. Geçerli değerler: 'MSE', 'Huber'")
 
 
 def train_one_fold(fold, train_df, test_df, train_idx, val_idx, config=None):
